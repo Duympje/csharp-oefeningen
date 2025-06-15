@@ -104,6 +104,73 @@ foreach (var (voornaam, achternaam) in personen)
 
 ---
 
+## Alfabetisch sorteren
+
+### LINQ sortering met Tuples (uit Gebruikerslijst project)
+
+```csharp
+// Alfabetisch sorteren van tuple lijst
+var gesorteerdePersonen = personen
+    .OrderBy(p => p.Voornaam)        // Eerst sorteren op voornaam
+    .ThenBy(p => p.Achternaam)       // Dan sorteren op achternaam
+    .ToList();                       // Sla de gesorteerde lijst op in een nieuwe variabele
+
+// Door gesorteerde lijst itereren
+foreach (var persoon in gesorteerdePersonen)
+{
+    myFile.WriteLine($"{persoon.Voornaam} {persoon.Achternaam}");
+}
+```
+
+### Verschillende sortering opties
+
+```csharp
+// Alleen op voornaam sorteren
+var sorterenOpVoornaam = personen.OrderBy(p => p.Voornaam).ToList();
+
+// Omgekeerd sorteren (Z-A)
+var omgekeerdSorteren = personen
+    .OrderByDescending(p => p.Voornaam)
+    .ThenByDescending(p => p.Achternaam)
+    .ToList();
+
+// Sorteren met meer criteria
+var complexeSortering = studenten
+    .OrderBy(s => s.Achternaam)      // Eerst achternaam
+    .ThenBy(s => s.Voornaam)         // Dan voornaam  
+    .ThenBy(s => s.Leeftijd)         // Dan leeftijd
+    .ToList();
+```
+
+### Praktische implementatie
+
+```csharp
+private void SchrijfResultaten(StreamWriter myFile)
+{
+    // Sorteer de personen alfabetisch
+    var gesorteerdePersonen = personen
+        .OrderBy(p => p.Voornaam)
+        .ThenBy(p => p.Achternaam)
+        .ToList();
+
+    // Schrijf gesorteerde gegevens naar bestand
+    foreach (var persoon in gesorteerdePersonen)
+    {
+        myFile.WriteLine($"{persoon.Voornaam} {persoon.Achternaam}");
+    }
+}
+```
+
+### Uitleg sortering concepten
+
+- **OrderBy()**: Primaire sortering (eerste criterium)
+- **ThenBy()**: Secundaire sortering (tweede criterium, etc.)
+- **OrderByDescending()**: Omgekeerd sorteren (Z naar A)
+- **ToList()**: Converteert het result naar een nieuwe lijst
+- **LINQ**: Language Integrated Query - krachtige tool voor data manipulatie
+
+---
+
 ## Projectoverzicht
 
 ### 📁 Huidige projecten in workspace:
